@@ -20,7 +20,7 @@ class HouseDetailView(DetailView):
 
 class HouseCreateView(LoginRequiredMixin,CreateView):
     model = HouseListing
-    template_name = "HousesApp/forms/submit_house_form.html"
+    template_name = "HousesApp/houses_create.html"
     
     fields = [
         'nome_do_proprietario',
