@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
+from django.core.validators import RegexValidator
 
 YESNO = [
     ("Sim", "Sim"),
@@ -48,8 +49,10 @@ class HouseListing(models.Model):
     # Proprietario
     nome_do_proprietario = models.CharField(max_length=30)
     sobrenome_do_proprietario = models.CharField(max_length=30)
-    contacto_principal = models.CharField(max_length=12)
-    contacto_secúndario = models.CharField(max_length=12,blank=True,null=True)
+
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',message="O número de telefone deve estar no seguinte formato: +999999999999. Deve conter no maximo 15 digitos")
+    contacto_principal = models.CharField(max_length=15, validators=[phone_regex])
+    contacto_secúndario = models.CharField(max_length=15, validators=[phone_regex],blank=True,null=True)
 
     # Preçario
     preço = models.FloatField(default=0.0)
