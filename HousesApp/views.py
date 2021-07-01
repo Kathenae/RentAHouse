@@ -1,8 +1,8 @@
 from .models import HouseListing
 from .forms import HouseListingForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -26,3 +26,15 @@ class HouseCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self,form):
         form.instance.create_by_user = self.request.user
         return super().form_valid(form)
+
+class HouseUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model = HouseListing
+    form_class = HouseListingForm
+    template_name = "HousesApp/houses_update.html"
+    context_object_name = "house"
+    permission_denied_message = 'Login is required'
+
+    def test_func(self):
+        current_listing_creator = self.get_object().create_by_user
+        requesting_user = self.request.user
+        return requesting_user == current_listing_creator

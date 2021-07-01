@@ -124,7 +124,7 @@
 
                 {% if user == house.create_by_user %}
                 <div class="form-group col-md-4">
-                    <a href="#">Modificar</a>                
+                    <a href="{% url 'house_update' house.pk %}">Modificar</a>                
                 </div>
                 {% endif %}
             </div>
