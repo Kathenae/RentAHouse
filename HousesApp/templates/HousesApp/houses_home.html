@@ -1,0 +1,38 @@
+{% extends 'layout.html '%}
+{% load static %}
+
+{% block css %}
+<style type="text/css">
+    body{
+        background-image: url({% static 'img/bg2.png' %});
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #navigation_bar{
+        background: black;
+        background-color: transparent!important;
+    }
+</style>
+{% endblock css%}
+
+{% block content %}
+<div class="container">
+    <h1>Encontre aqui</h1>
+    <h3 id="slogan">a sua casa dos sonhos</h3>
+    <p class="info col-md-4">
+        A <B>RentAHouse</B> é um serviço de arrendamento de imóveis nas cidades de Tete e Moatize, assim
+        como na província de Tete. Encontre aqui a casa dos seus sonhos, para criar os seus filhos,
+        sua família, ou por outras, para alojar os seus funcionários.
+    </p>
+    <br>
+    <a  href="{% url 'house_list'%}" class="btn btn-success col-md-2 userButton"> Arrendar Casa </a>
+    <a href="{% url 'house_create' %}" class="btn btn-outline-success col-md-2 userButton" >Submeter Casa</a>
+</div>
+
+</div>  
+<div class="info"> 
+    
+</div> 
+
+{% endblock content %}

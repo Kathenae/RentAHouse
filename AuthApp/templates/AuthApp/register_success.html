@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-success">Registro effectuado com successo</h1>
+    <p>A sua conta foi criada, esta a um passo de poder usar os nossos serviços</p>
+    <small><a href="{% url 'login' %}"> Faça o login aqui</a> para confirmar a sua identidade </small>
+</div>
+{% endblock content %}

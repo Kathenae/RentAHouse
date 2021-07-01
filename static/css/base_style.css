@@ -1,0 +1,93 @@
+/*Importação de fontes*/
+@font-face{
+    font-family: "Akrobat";
+    src: url(../fonts/Akrobat-Regular.eot);
+}
+@font-face{
+    font-family: "titulo";
+    src: url(../fonts/MrGrieves-Regular.otf);
+}
+@font-face{
+    font-family: "subtitulo";
+    src: url(../fonts/BRADHITC.TTF);
+}
+@font-face{
+    font-family: "info";
+    src: url(../fonts/Montserrat/Montserrat-Regular.otf);
+}
+
+
+
+/*corpo da pagina*/
+body{
+    background: white;
+    background-image: url();
+}
+
+/*menu*/
+.menu{
+    color: #212529;
+}
+.userAction{
+    margin-top: 100px;
+}
+
+.userButton{
+    height: 50px;
+    border-radius: 5px;
+    font-family: 'Akrobat';
+    font-size: x-large;
+    font-weight: 700;
+}
+#rentBtn:hover{
+    background-color: white;
+    color: rgb(35, 158, 56);
+    border-color: rgb(35, 158, 56);
+}
+#subBtn:hover{
+    background-color:rgb(35, 158, 56);
+    color: white;
+    border-color: rgb(35, 158, 56);
+}
+h1{
+    font-family: 'titulo';
+    font-size: 45pt;
+    color: #005BBA;
+}
+h3#slogan{
+    font-family: 'subtitulo';
+    font-weight: 700;
+}
+.info{
+    text-indent: 30px;
+    margin-top: 80px;
+    text-align: justify;
+    font-family: 'Akrobat';
+    font-weight: 550;
+}
+.btns{
+    margin-top: 100px;
+    margin-left: 40px;
+}
+
+/*************Configuracao para elementos de outras paginas***************/
+.proprietario, .casa{
+    font-family: 'Akrobat';
+    font-size: 12pt;
+}
+.form-title{
+    background-color: #212529;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.slideInfo{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 5px;
+}
+.imgSlide{
+    border-radius: 15px;
+    box-shadow: 2px 3px 3px  #212529;
+}

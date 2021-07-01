@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RentAHouse</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_style.css' %}">
+    {% block css %} {% endblock css %}
+</head>
+<body>
+    
+        <div class="nav">
+            <nav class="navbar navbar-expand-lg  fixed-top bg-light" id="navigation_bar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-md-9">
+                        <li class="nav-item">
+                        <a class="nav-link active menu" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu" href="{% url 'house_list' %}">Procurar Casas</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <a class="nav-link menu" href="{% url 'house_create' %}">Registar Casa</a>
+                        </li>
+                        {% endif %}
+                    </ul>      
+                    <div class="d-flex col-md-3">
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link menu" href="#">Minha Conta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu" href="{% url 'logout' %}">Sair</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu" href="{% url 'login' %}">Entrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu" href="{% url 'register' %}">Criar conta</a>
+                        </li>
+                        {% endif %}
+                    </div>           
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="userAction mb-4">
+            <div class="container col-10 ml-auto">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="row justify-content-end">
+                        <div class="alert alert-{{message.tags}}">{{message}}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <div class="footer"></div>
+
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}" ></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
