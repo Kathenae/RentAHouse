@@ -1,5 +1,5 @@
 from .models import HouseListing
-
+from .forms import HouseListingForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
@@ -19,24 +19,8 @@ class HouseDetailView(DetailView):
     template_name = "HousesApp/houses_details.html"
 
 class HouseCreateView(LoginRequiredMixin,CreateView):
-    model = HouseListing
+    form_class = HouseListingForm
     template_name = "HousesApp/houses_create.html"
-    
-    fields = [
-        'nome_do_proprietario',
-        'sobrenome_do_proprietario',
-        'contacto_principal',
-        'contacto_secúndario',
-        'preço',
-        'meses_adiantados',
-        'cidade',
-        'distrito',
-        'bairro',
-        'numero_de_divisoes',
-        'mobiliada',
-        'vedada'
-    ]
-
     permission_denied_message = 'Login is required'
 
     def form_valid(self,form):
