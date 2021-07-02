@@ -12,6 +12,10 @@ class UserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'nome', 'sobrenome')
+        help_texts = {
+                'email' : 'Exemplo: johndoe@domain.com',
+                'password1' : 'Tem que contar pelo menos 6 caracteres'
+        }
 
     def clean_password2(self):
         # Check that the two password entries match

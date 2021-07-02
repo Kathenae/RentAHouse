@@ -8,6 +8,67 @@
 {% block content %}
 
     <div class="container">
+        <div class="col-md-2">
+            <p>
+                <a 
+                    data-bs-toggle="collapse" 
+                    href="#collapseExample" 
+                    role="button" 
+                    aria-expanded="false" 
+                    aria-controls="collapseExample">
+                        Filtrar
+                </a>
+            </p>
+        </div>    
+        
+        <div class="collapse mb-4" id="collapseExample">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="id_cidade" class="form-check-label">Provincia:</label>
+                    <select class="form-select" name="cidade" id="id_cidade">
+                        <option value="all">(Qualquer)</option>
+                        <option value="Tete">Tete</option>
+                        <option value="Maputo">Maputo</option>
+                        <option value="Gaza">Gaza</option>
+                        <option value="Inhambane">Inhambane</option>
+                        <option value="Manica">Manica</option>
+                        <option value="Sofal">Sofala</option>
+                        <option value="Zambezia">Zambezia</option>
+                        <option value="Nampula">Nampula</option>
+                        <option value="Cabo Delgado">Cabo Delgado</option>
+                        <option value="Niassa">Niassa</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="id_distrito" class="form-check-label">Distrito:</label>
+                    <input type="text" name="distrito" id="id_distrito" class="form-control" placeholder="Qualquer">
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="id_price_range" class="form-check-label">Preço:</label>
+                    <select class="form-select" name="price_range" id="id_price_range">
+                        <option value="all"><b>(Qualquer)</b></option>
+                        <option value="low">500 à 5.000 meticais</option>
+                        <option value="medium">5.000 à 15.000 meticais</option>
+                        <option value="high">15.000 à 25.000 meticais</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="id_numero_de_divisoes">Número de Quartos</label>
+                    <input type="number" name="numero_de_divisoes" id="id_numero_de_divisoes" class="form-control">
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-10">
+                        <button class="btn btn-primary" type="submit">Atualizar</button>
+                    </div>  
+                </div>
+                
+            </div>
+          </div>
+
         {% if houses.count <= 0 %}
             <div class="text-center">
                 <h1 class="text-info">Nenhuma Casa Disponivel</h1>
@@ -16,7 +77,7 @@
         {% endif %}     
         <div class="row">
             {% for house in houses %}
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card">
                     <img src="{% static 'img/house_preview_2.jpg' %}" alt="">
                     <div class="card-body">

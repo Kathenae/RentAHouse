@@ -5,14 +5,27 @@
 {% block content %}
     <div class="container">
         <div class="row">
+            
             <div class="col-md-1">
             </div>
 
-             <div class="col-md-10">
-                <div class="destaques-noticiosos">
-                    <div class="carousel slide" id="carouselSite" data-ride="carousel">
-                    
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <a href="{% url 'house_list' %}">Voltar</a>                
+                    </div>
 
+                    {% if user == house.create_by_user %}
+                    <div class="form-group col-md-2">
+                        <a href="{% url 'house_update' house.pk %}">Modificar</a>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>                
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="carousel slide" id="carouselSite" data-ride="carousel">
                     <div class="carousel-inner">
                         <!--A Imagem sendo adicionada-->
                         <div class="carousel-item active">
@@ -67,86 +80,85 @@
                             </div>
                         </div>
 
+                        <div class="carousel-control">
+                            <a 
+                                href="#carouselSite" 
+                                class="carousel-control-prev" 
+                                role="button"  
+                                data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                    <span class="sr-only">Anterior</span>
+                            </a>
 
-                        <a href="#carouselSite" class="carousel-control-prev" role="button"  data-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a href="#carouselSite" class="carousel-control-next" role="button"  data-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                            <span class="sr-only">Proximo </span>
-                        </a>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-            <div class="form-row">
-                <div class="col-md-12 mt-4">
-                    <h3>Dados da propriedade</h3>
-                </div>
-            </div>
+                            <a 
+                                href="#carouselSite" 
+                                class="carousel-control-next" 
+                                role="button"  
+                                data-slide="next">
+                                    <span class="sr-only">Proximo</span>
+                                    <span class="carousel-control-next-icon"></span>
+                            </a>
+                        </div>
 
-            <div class="form-row">	
-            	<div class="form-group col-md-3">
-                	<b><label> Número de Divisões: </label></b>
-                	<span>{{house.numero_de_divisoes}}</span>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <b><label> Vedada: </label></b>
-                    {{house.vedada}}
-                </div>
-                <div class="form-group col-md-3">
-                    <b><label> Mobilia Incluida: </label></b>
-                    <span>{{house.mobiliada}}</span>
-                </div>
+                    </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-8">
-                	<b><label> Localização:</label></b>  
-                    <span>Bairro {{house.bairro}} em {% if house.distrito %}{{house.distrito}} - {% endif %}{{house.cidade}}</span>
-                </div>
-            </div>
+            <a 
+                class="mt-2 mb-2    " 
+                data-bs-toggle="collapse" 
+                href="#collapseExample" 
+                role="button" 
+                aria-expanded="false" 
+                aria-controls="collapseExample">
+                    <h3>Detalhes</h3>
+            </a>
 
-            <div class="form-row">
-                <div class="col-md-12 mt-2">
-                    <h3>Dados do proprietário</h3>
+            <div class="collapse" style="margin-left: 20px;" id="collapseExample">
+                <div class="row">
+                    <div class="col-md-8">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><p class="descricao">Nome do Proprietário: </p></td>
+                                <td><p class="descricao">{{house.nome_do_proprietario}} {{house.sobrenome_do_proprietario}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Contacto:</p></td>
+                                <td>
+                                    <p class="descricao">
+                                        {{house.contacto_principal}}
+                                        {% if house.contacto_secúndario %}
+                                            ou {{house.contacto_secúndario}}
+                                        {% endif %}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao strong">Localização da Residência:</p></td>
+                                <td><p class="descricao">{{house.bairro}}, {% if house.distrito%}{{house.distrito}} - {% endif %}{{house.cidade}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Número de Divisões:</p></td>
+                                <td><p class="descricao">{{house.numero_de_divisoes}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Vedada:</p></td>
+                                <td><p class="descricao">{{house.vedada}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Mobiliada:</p></td>
+                                <td><p class="descricao">{{house.mobiliada}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Renda:</p></td>
+                                <td><p class="descricao">{{house.preço}} Mts</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="descricao">Entrada:</p></td>
+                                <td><p class="descricao">{{house.meses_adiantados}} Meses</p></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                	<b><label> Nome do proprietário:</label></b>
-                	<span>{{house.nome_do_proprietario}} {{house.sobrenome_do_proprietario}}</span>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                	<b><label> Contacto:</label></b>               
-                	<span>{{house.contacto_principal}}</span>
-                	<br>
-                </div>
-
-                {% if house.contacto_secúndario %}
-                <div class="form-group col-md-4">
-                    <b><label> Contacto Alternativo:</label></b>               
-                	<span>{{house.contacto_secúndario}}</span>
-                </div>
-                {% endif %}
-            </div>
-
-            <div class="form-row mb-5">
-                <div class="form-group col-md-4">
-                    <a href="{% url 'house_list' %}">Voltar</a>                
-                </div>
-
-                {% if user == house.create_by_user %}
-                <div class="form-group col-md-4">
-                    <a href="{% url 'house_update' house.pk %}">Modificar</a>                
-                </div>
-                <div class="form-group col-md-4">
-                    <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>                
-                </div>
-                {% endif %}
             </div>
     </div>
 {% endblock content %}
