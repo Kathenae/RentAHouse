@@ -1,5 +1,5 @@
 from django import forms
-from .models import HouseListing
+from .models import HouseListing, HouseListingPicture
 
 class HouseListingForm(forms.ModelForm):
 
@@ -26,3 +26,11 @@ class HouseListingForm(forms.ModelForm):
         	'contacto_principal': 'Usado por clientes para poder contactar o proprietario da casa',
         	'numero_de_divisoes': 'O número total de quartos, salas, cozinhas, etc, disponiveis na casa'
         }
+
+class HousePictureForm(forms.ModelForm):
+    class Meta:
+        model = HouseListingPicture
+        fields = [
+            'descriçao',
+            'picture'
+        ]
