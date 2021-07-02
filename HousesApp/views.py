@@ -15,6 +15,68 @@ class HousesListView(ListView):
     context_object_name = "houses"
     template_name = "HousesApp/houses_list.html"
 
+    def get_queryset(self):
+        listings = HouseListing.objects.all()
+        
+        if self.request.GET.__contains__('cidade'):
+            cidade = self.request.GET['cidade']
+            if cidade != "all":
+               listings = listings.filter(cidade__icontains=cidade)
+
+        if self.request.GET.__contains__('distrito'):
+            distrito = self.request.GET['distrito']
+            
+            if distrito != "":
+                listings = listings.filter(distrito__icontains=distrito)
+
+        if self.request.GET.__contains__('price_range'):
+            price_range = self.request.GET['price_range']
+
+            if price_range != "all":
+                if price_range == "low":
+                    min_price = 500
+                    max_price = 5000
+
+                if price_range == "medium":
+                    min_price = 5000
+                    max_price = 15000
+
+                if price_range == "high":
+                    min_price = 15000
+                    max_price = 25000
+
+                listings = listings.filter(preço__range=(min_price,max_price))
+
+        if self.request.GET.__contains__('room_count'):
+            room_count = self.request.GET['room_count']
+            try:
+                room_count = int(room_count)
+
+                if room_count > 0:
+                    listings = listings.filter(numero_de_divisoes=room_count)
+                
+            except Exception as e:
+                print("Room count not valid")
+
+        return listings
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.GET.__contains__('cidade'):
+            context['cidade'] = self.request.GET['cidade']
+
+        if self.request.GET.__contains__('distrito'):
+            context['distrito'] = self.request.GET['distrito']
+
+        if self.request.GET.__contains__('price_range'):
+            context['price_range'] = self.request.GET['price_range']
+
+        if self.request.GET.__contains__('room_count'):
+            context['room_count'] = self.request.GET['room_count']
+
+        return context
+
 class HouseDetailView(DetailView):
     model = HouseListing
     context_object_name = "house"
