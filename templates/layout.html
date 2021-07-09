@@ -41,7 +41,7 @@
                         
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link menu" href="#">Minha Conta</a>
+                            <a class="nav-link menu" href="{% url 'house_user_houses' %}">Minhas Casas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu" href="{% url 'logout' %}">Sair</a>

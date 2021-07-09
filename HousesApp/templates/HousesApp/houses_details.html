@@ -14,13 +14,15 @@
                     <div class="form-group col-md-2">
                         <a href="{% url 'house_list' %}">Voltar</a>                
                     </div>
-
                     {% if user == house.create_by_user %}
                     <div class="form-group col-md-2">
                         <a href="{% url 'house_update' house.pk %}">Modificar</a>
                     </div>
                     <div class="form-group col-md-2">
-                        <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>                
+                        <a href="{% url 'house_delete' house.pk %}">Eliminar</a>           
+                    </div>
+                    <div class="form-group col-md-2">
+                        <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>           
                     </div>
                     {% endif %}
                 </div>

@@ -4,8 +4,16 @@ from .mixins import UserOwnsHouseMixin
 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.views.generic import (
+    TemplateView, 
+    ListView, 
+    DetailView, 
+    CreateView, 
+    UpdateView, 
+    DeleteView
+)
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -101,8 +109,13 @@ class HouseUpdateView(LoginRequiredMixin,UserOwnsHouseMixin,UpdateView):
 
 class HouseDeleteView(LoginRequiredMixin,UserOwnsHouseMixin,DeleteView):
     model = HouseListing
+    template_name = "HousesApp/houses_confirm_delete.html"
+    context_object_name = "house"
 
-class UserHousesView(LoginRequiredMixin,ListView):
+    def get_success_url(self):
+        return reverse('house_user_houses')
+
+class UserHouseListView(LoginRequiredMixin,ListView):
     model = HouseListing
     template_name = "HousesApp/houses_user_houses.html"
     context_object_name = "houses"

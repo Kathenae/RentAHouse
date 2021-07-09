@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+	<h1>Minhas Casas</h1>
+
+	<ul>
+	{% for house in houses %}
+		<li><a href="{% url 'house_detail' house.pk %}">Bairro {{house.bairro}}, {% if house.distrito %}{{house.distrito}}/{% endif %}{{house.cidade}} a {{house.data_registrada}}</a></li>
+	{% endfor %}
+	</ul>
+</div>
+{% endblock content %}
