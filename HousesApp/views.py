@@ -1,10 +1,11 @@
 from .models import HouseListing
 from .forms import HouseListingForm, HousePictureForm
+from .mixins import UserOwnsHouseMixin
 
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -91,17 +92,23 @@ class HouseCreateView(LoginRequiredMixin,CreateView):
         form.instance.create_by_user = self.request.user
         return super().form_valid(form)
 
-class HouseUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class HouseUpdateView(LoginRequiredMixin,UserOwnsHouseMixin,UpdateView):
     model = HouseListing
     form_class = HouseListingForm
     template_name = "HousesApp/houses_update.html"
     context_object_name = "house"
     permission_denied_message = 'Login is required'
 
-    def test_func(self):
-        current_listing_creator = self.get_object().create_by_user
-        requesting_user = self.request.user
-        return requesting_user == current_listing_creator
+class HouseDeleteView(LoginRequiredMixin,UserOwnsHouseMixin,DeleteView):
+    model = HouseListing
+
+class UserHousesView(LoginRequiredMixin,ListView):
+    model = HouseListing
+    template_name = "HousesApp/houses_user_houses.html"
+    context_object_name = "houses"
+
+    def get_queryset(self):
+        return HouseListing.objects.filter(create_by_user=self.request.user)
 
 def upload_listing_picture(request,listing_pk):
 
