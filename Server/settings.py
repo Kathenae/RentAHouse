@@ -26,7 +26,7 @@ SECRET_KEY = "SUPER_ULTRA_SECRET_KEY_THATS_NOT_SET_IN_A_SAFE_WAY" #os.environ['S
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["moz-codec-house-rental.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ["moz-codec-house-rental.herokuapp.com","mozcodec-house-rental.herokuapp.com", "localhost"]
 
 
 # Application definition
