@@ -12,4 +12,5 @@ urlpatterns = [
     path('casa<int:listing_pk>/upload/', views.upload_listing_picture, name="house_upload"),
     path('casas/submeter/', views.HouseCreateView.as_view(),name="house_create"),
     path('casas/minhas-casas/', views.UserHouseListView.as_view(), name="house_user_houses"),
+    path('casa<int:listing_pk>/mostrar-na-lista/', views.toggle_house_visibility, name="house_toggle_visibility")
 ]

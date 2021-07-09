@@ -22,6 +22,11 @@
                         <a href="{% url 'house_delete' house.pk %}">Eliminar</a>           
                     </div>
                     <div class="form-group col-md-2">
+                        <a href="{% url 'house_toggle_visibility' house.pk %}">
+                            {% if house.mostrar_na_lista %}Ocultar na lista {% else %}Mostar na lista{% endif %}
+                        </a>           
+                    </div>
+                    <div class="form-group col-md-2">
                         <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>           
                     </div>
                     {% endif %}

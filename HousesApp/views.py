@@ -25,7 +25,7 @@ class HousesListView(ListView):
     template_name = "HousesApp/houses_list.html"
 
     def get_queryset(self):
-        listings = HouseListing.objects.all()
+        listings = HouseListing.objects.filter(mostrar_na_lista=True)
         
         if self.request.GET.__contains__('cidade'):
             cidade = self.request.GET['cidade']
@@ -142,3 +142,14 @@ def upload_listing_picture(request,listing_pk):
             return redirect(house)
 
     return render(request,'HousesApp/upload_image.html',context={'house' : house, 'form' : form})
+
+def toggle_house_visibility(request,listing_pk):
+    house = get_object_or_404(HouseListing,pk=listing_pk)
+
+    if request.user != house.create_by_user:
+        return redirect(house)
+
+    house.mostrar_na_lista = not house.mostrar_na_lista
+    house.save()
+
+    return redirect(house)
