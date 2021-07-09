@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,9 +123,16 @@ USE_TZ = True
 # STATIC FILES (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/' 
+
+# Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    PROJECT_ROOT / 'static',
 ]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # AUTH URL SETTINGS
 LOGIN_URL = 'login'
@@ -137,3 +145,7 @@ MEDIA_URL = "/files/"
 
 # CRISPY SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
