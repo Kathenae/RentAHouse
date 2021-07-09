@@ -122,10 +122,13 @@ USE_TZ = True
 
 # STATIC FILES (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/' 
 
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = [
+<<<<<<< HEAD
     PROJECT_ROOT / 'static',
 ]
 
@@ -133,6 +136,12 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+=======
+    os.path.join(PROJECT_ROOT, 'static'),
+]
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+>>>>>>> f222625cb264e61a82d24440590154c18e59af18
 
 # AUTH URL SETTINGS
 LOGIN_URL = 'login'
