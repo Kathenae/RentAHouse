@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 YESNO = [
@@ -34,6 +35,10 @@ class MOZAMBIQUE:
         (NIASSA,"Niassa")
     ]
 
+def validate_non_negative(value):
+    if value < 0:
+        raise ValidationError('Não são permitidos valores negativos', params={'value' : value})
+
 class HouseListing(models.Model):
 
     # Dados de Registro
@@ -55,8 +60,8 @@ class HouseListing(models.Model):
     contacto_secúndario = models.CharField(max_length=15, validators=[phone_regex],blank=True,null=True)
 
     # Preçario
-    preço = models.FloatField(default=0.0)
-    meses_adiantados = models.IntegerField(default=1)
+    preço = models.FloatField(default=0.0, validators=[validate_non_negative])
+    meses_adiantados = models.IntegerField(default=1, validators=[validate_non_negative])
 
     # Localizaçao
     cidade = models.CharField(max_length=30, choices=MOZAMBIQUE.CITY_CHOICES)
@@ -64,7 +69,7 @@ class HouseListing(models.Model):
     bairro = models.CharField(max_length=100)
 
     # Compartimentos
-    numero_de_divisoes = models.IntegerField()
+    numero_de_divisoes = models.IntegerField(validators=[validate_non_negative])
     mobiliada = models.CharField(max_length=6, choices=YESNO)
     vedada= models.CharField(max_length=6, choices=YESNO)
 
