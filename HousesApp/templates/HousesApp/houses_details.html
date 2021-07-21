@@ -154,7 +154,7 @@
             <a href="{% url 'house_toggle_visibility' house.pk %}" class="btn btn-outline-success">
                 {% if house.mostrar_na_lista %}Ocultar{% else %}Publicar{% endif %}
             </a>
-            <a href="{% url 'house_upload' house.pk %}" class="btn btn-outline-warning">Fotos</a>
+            <a href="{% url 'house_upload_picture' house.pk %}" class="btn btn-outline-warning">Imagens</a>
             <a href="{% url 'house_delete' house.pk %}" class="btn btn-outline-danger">Apagar</a>
 
             {% endif %}

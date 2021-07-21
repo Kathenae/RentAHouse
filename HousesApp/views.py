@@ -1,4 +1,4 @@
-from .models import HouseListing
+from .models import HouseListing, HouseListingPicture
 from .forms import HouseListingForm, HousePictureForm
 from .mixins import UserOwnsHouseMixin
 
@@ -123,9 +123,10 @@ class UserHouseListView(LoginRequiredMixin,ListView):
     def get_queryset(self):
         return HouseListing.objects.filter(create_by_user=self.request.user)
 
-def upload_listing_picture(request,listing_pk):
 
-    house = get_object_or_404(HouseListing,pk=listing_pk)
+def upload_listing_picture(request,house_pk):
+
+    house = get_object_or_404(HouseListing,pk=house_pk)
 
     if request.user != house.create_by_user:
         return redirect(house)
@@ -139,12 +140,21 @@ def upload_listing_picture(request,listing_pk):
         if form.is_valid():
             form.instance.house = house
             form.save()
-            return redirect(house)
+            return redirect("house_upload_picture", house_pk=house_pk)
 
     return render(request,'HousesApp/upload_image.html',context={'house' : house, 'form' : form})
 
-def toggle_house_visibility(request,listing_pk):
-    house = get_object_or_404(HouseListing,pk=listing_pk)
+def delete_listing_picture(request, picture_pk):
+    picture = get_object_or_404(HouseListingPicture, pk=picture_pk)
+
+    if request.user != picture.house.create_by_user:
+        return redirect("home")
+
+    picture.delete()
+    return redirect("house_upload_picture", house_pk=picture.house.pk)
+
+def toggle_house_visibility(request,house_pk):
+    house = get_object_or_404(HouseListing,pk=house_pk)
 
     if request.user != house.create_by_user:
         return redirect(house)

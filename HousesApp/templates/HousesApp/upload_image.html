@@ -4,12 +4,35 @@
 
 {% block content %}
 <div class="container">
-    <form action="{% url 'house_upload' house.pk %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <br>
-        <button class="btn btn-primary" type="submit">Upload</button>
-        <a href="{% url 'house_detail' house.pk %}" class="btn btn-danger">Cancelar</a>
+     <form action="{% url 'house_upload_picture' house.pk %}" method="post" enctype="multipart/form-data">
+
+        <h1>Imagens da Casa</h1>
+        <div class="row">
+
+            <div class="col-md-4 mb-4 card">
+                <div class="card-body">
+                    <h3 class="card-title">Nova Imagen</h3>                    
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-success" type="submit">Confirmar</button>
+                </div>
+            </div>
+            
+            {% for picture in house.pictures.all %}
+            <div class="col-md-4 mb-4 card">
+                <div class="card-body">
+                    <h3 class="card-title">{{picture.descriçao}}</h3>
+                </div>
+                <img src="{{picture.picture.url}}">
+                <div class="card-footer">
+                    <a href="{% url 'house_delete_picture' picture.pk %}" class="btn btn-outline-danger">Excluir</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </form>
 </div>  
 {% endblock content %}
