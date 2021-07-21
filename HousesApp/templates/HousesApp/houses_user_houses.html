@@ -8,7 +8,7 @@
 	<div class="row">
 		{% for house in houses %}
 		<div class="col-md-4 mb-4">
-            <div class="card" style=" min-height: 370px;">
+            <div class="card" style=" min-height: 400px;">
                 <img src="{% static 'img/house_preview_2.jpg' %}" alt="">
                 <div class="card-body">
                     <h4 class="card-title"> {{ house.bairro}}, {{house.cidade}}{% if house.distrito %}/{{house.distrito}}{% endif %}</h4>
@@ -18,7 +18,18 @@
 
                 <div class="card-footer">
                 	<h5 class="card-subtitle mb-2 text-muted proprietario">Renda: <b class="text-info">{{house.preço}} MZN</b> por mês </h5>
-                    <a href="{% url 'house_detail' house.pk %}" class="btn btn-sm btn-primary">Ver mais</a>
+                    <a href="{% url 'house_detail' house.pk %}" class="card-link">Ver Detalhes</a>
+
+                    <div class="text-center mt-2">
+                    	{% if user == house.create_by_user %}
+				            <a href="{% url 'house_update' house.pk %}" class="btn btn-sm btn-primary">Alterar</a>
+				            <a href="{% url 'house_toggle_visibility' house.pk %}" class="btn btn-sm btn-secondary">
+				                {% if house.mostrar_na_lista %}Ocultar{% else %}Publicar{% endif %}
+				            </a>
+				            <a href="{% url 'house_upload_picture' house.pk %}" class="btn btn-sm btn-primary">Imagens</a>
+				            <a href="{% url 'house_delete' house.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+			            {% endif %}
+                    </div>
                 </div>
             </div>
         </div>	
