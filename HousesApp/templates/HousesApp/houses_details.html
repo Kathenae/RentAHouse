@@ -56,12 +56,18 @@
                                 height="600"
                             >
 
-                            <div class="carousel-caption d-md-block destaque" >
+                            <div class="carousel-caption d-md-block" >
                                 <!--O Texto que acompanha a imagem-->
                                 <div class="slideInfo">
                                    	<h3 class="h3Slide">
-                                        Alugue agora por {{house.preço}} Mts
+                                        Renda {{house.preço}} MZN
                                     </h3>
+                                    <h5 class="h4Slide">
+                                        Ligue: {{house.contacto_principal}}
+                                        {% if house.contacto_secúndario %}
+                                             ou {{house.contacto_secúndario}}
+                                        {% endif %}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
