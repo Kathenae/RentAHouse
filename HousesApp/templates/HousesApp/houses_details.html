@@ -10,29 +10,8 @@
             </div>
 
             <div class="col-md-10">
-                <div class="row">
-                    <div class="form-group col-md-2">
-                        <a href="{% url 'house_list' %}">Voltar</a>                
-                    </div>
-                    {% if user == house.create_by_user %}
-                    <div class="form-group col-md-2">
-                        <a href="{% url 'house_update' house.pk %}">Modificar</a>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <a href="{% url 'house_delete' house.pk %}">Eliminar</a>           
-                    </div>
-                    <div class="form-group col-md-2">
-                        <a href="{% url 'house_toggle_visibility' house.pk %}">
-                            {% if house.mostrar_na_lista %}Ocultar na lista {% else %}Mostar na lista{% endif %}
-                        </a>           
-                    </div>
-                    <div class="form-group col-md-2">
-                        <a href="{% url 'house_upload' house.pk %}">Addicionar Imagen</a>           
-                    </div>
-                    {% endif %}
-                </div>
 
-                <div class="carousel slide" id="carouselSite" data-ride="carousel">
+                <div class="carousel slide" id="carouselSite" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <!--A Imagem sendo adicionada-->
                         <div class="carousel-item active">
@@ -91,8 +70,9 @@
                             <a 
                                 href="#carouselSite" 
                                 class="carousel-control-prev" 
-                                role="button"  
-                                data-slide="prev">
+                                role="button"
+                                data-bs-target=""  
+                                data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon"></span>
                                     <span class="sr-only">Anterior</span>
                             </a>
@@ -101,7 +81,7 @@
                                 href="#carouselSite" 
                                 class="carousel-control-next" 
                                 role="button"  
-                                data-slide="next">
+                                data-bs-slide="next">
                                     <span class="sr-only">Proximo</span>
                                     <span class="carousel-control-next-icon"></span>
                             </a>
@@ -167,5 +147,17 @@
                     </div>
                 </div>
             </div>
+
+            <a href="{% url 'house_list' %}" class="btn btn-secondary">Voltar</a>
+            {% if user == house.create_by_user %}
+            <a href="{% url 'house_update' house.pk %}" class="btn btn-outline-primary">Alterar</a>
+            <a href="{% url 'house_toggle_visibility' house.pk %}" class="btn btn-outline-success">
+                {% if house.mostrar_na_lista %}Ocultar{% else %}Publicar{% endif %}
+            </a>
+            <a href="{% url 'house_upload' house.pk %}" class="btn btn-outline-warning">Fotos</a>
+            <a href="{% url 'house_delete' house.pk %}" class="btn btn-outline-danger">Apagar</a>
+
+            {% endif %}
+
     </div>
 {% endblock content %}
