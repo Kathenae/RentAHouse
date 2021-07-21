@@ -5,10 +5,33 @@
 <div class="container">
 	<h1>Minhas Casas</h1>
 
-	<ul>
-	{% for house in houses %}
-		<li><a href="{% url 'house_detail' house.pk %}">Bairro {{house.bairro}}, {% if house.distrito %}{{house.distrito}}/{% endif %}{{house.cidade}} a {{house.data_registrada}}</a></li>
-	{% endfor %}
-	</ul>
+	<div class="row">
+		{% for house in houses %}
+		<div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{% static 'img/house_preview_2.jpg' %}" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">Bairro {{ house.bairro}}, {{house.cidade}}{% if house.distrito %}/{{house.distrito}}{% endif %}</h4>
+                    <h5 class="card-subtitle mb-2 text-muted proprietario">Proprietário: {{house.nome_do_proprietario}} {{house.sobrenome_do_proprietario}}</h5>
+                    <div class="row casa text-muted">
+                        <div class="col-md-4 ">
+                            <img src="{% static 'img/icons/tipoDeCasa.png' %}" alt=""> = {{house.numero_de_divisoes}}
+                        </div>
+                        <div class="col-md-4 casa">
+                            <img src="{% static 'img/icons/quartos.png' %}" alt="">
+                            = 3
+                        </div>
+                        <div class="col-md-4 casa">
+                            <img src="{% static 'img/icons/casasDebanho.png' %}" alt="">
+                            = 3
+                        </div>
+                    </div>
+                    <a href="{% url 'house_detail' house.pk %}" class="card-link">Ver mais</a>
+                </div>
+            </div>
+        </div>
+	{% endfor %}		
+	</div>
+
 </div>
 {% endblock content %}
