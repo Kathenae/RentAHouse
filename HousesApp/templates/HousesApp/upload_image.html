@@ -4,31 +4,31 @@
 
 {% block content %}
 <div class="container">
-     <form action="{% url 'house_upload_picture' house.pk %}" method="post" enctype="multipart/form-data">
+     <form action="{% url 'create_compartment' house.pk %}" method="post" enctype="multipart/form-data">
 
-        <h1>Imagens da Casa</h1>
+        <h1>Compartimentos da Casa</h1>
         <div class="row">
 
             <div class="col-md-4 mb-4 card">
                 <div class="card-body">
-                    <h3 class="card-title">Nova Imagen</h3>                    
+                    <h3 class="card-title">Novo</h3>                    
                     {% csrf_token %}
                     {{ form | crispy }}
                 </div>
 
                 <div class="card-footer">
-                    <button class="btn btn-success" type="submit">Confirmar</button>
+                    <button class="btn btn-success" type="submit">Addicionar</button>
                 </div>
             </div>
             
-            {% for picture in house.pictures.all %}
+            {% for compartmento in house.compartments.all %}
             <div class="col-md-4 mb-4 card">
                 <div class="card-body">
-                    <h3 class="card-title">{{picture.descriçao}}</h3>
+                    <h3 class="card-title">{{compartmento.tipo}}</h3>
                 </div>
-                <img src="{{picture.picture.url}}">
+                <img src="{{compartmento.foto.url}}">
                 <div class="card-footer">
-                    <a href="{% url 'house_delete_picture' picture.pk %}" class="btn btn-outline-danger">Excluir</a>
+                    <a href="{% url 'delete_compartment' compartmento.pk %}" class="btn btn-outline-danger">Excluir</a>
                 </div>
             </div>
             {% endfor %}

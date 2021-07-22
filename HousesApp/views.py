@@ -1,5 +1,5 @@
-from .models import HouseListing, HouseListingPicture
-from .forms import HouseListingForm, HousePictureForm
+from .models import HouseListing, HouseCompartment
+from .forms import HouseListingForm, HouseCompartmentForm
 from .mixins import UserOwnsHouseMixin
 
 from django.urls import reverse
@@ -125,34 +125,34 @@ class UserHouseListView(LoginRequiredMixin,ListView):
         return HouseListing.objects.filter(create_by_user=self.request.user)
 
 
-def upload_listing_picture(request,house_pk):
+def create_compartment(request,house_pk):
 
     house = get_object_or_404(HouseListing,pk=house_pk)
 
     if request.user != house.create_by_user:
         return redirect(house)
 
-    form = HousePictureForm()
+    form = HouseCompartmentForm()
 
     if request.method == 'POST':
         
-        form = HousePictureForm(request.POST,request.FILES)
+        form = HouseCompartmentForm(request.POST,request.FILES)
 
         if form.is_valid():
             form.instance.house = house
             form.save()
-            return redirect("house_upload_picture", house_pk=house_pk)
+            return redirect("create_compartment", house_pk=house_pk)
 
     return render(request,'HousesApp/upload_image.html',context={'house' : house, 'form' : form})
 
-def delete_listing_picture(request, picture_pk):
-    picture = get_object_or_404(HouseListingPicture, pk=picture_pk)
+def delete_compartment(request, compartment_pk):
+    compartment = get_object_or_404(HouseCompartment, pk=compartment_pk)
 
-    if request.user != picture.house.create_by_user:
+    if request.user != compartment.house.create_by_user:
         return redirect("home")
 
-    picture.delete()
-    return redirect("house_upload_picture", house_pk=picture.house.pk)
+    compartment.delete()
+    return redirect("create_compartment", house_pk=compartment.house.pk)
 
 def toggle_house_visibility(request,house_pk):
     house = get_object_or_404(HouseListing,pk=house_pk)

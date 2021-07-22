@@ -1,5 +1,5 @@
 from django import forms
-from .models import HouseListing, HouseListingPicture
+from .models import HouseListing, HouseCompartment
 
 class HouseListingForm(forms.ModelForm):
 
@@ -27,10 +27,10 @@ class HouseListingForm(forms.ModelForm):
         	'numero_de_divisoes': 'O número total de quartos, salas, cozinhas, etc, disponiveis na casa'
         }
 
-class HousePictureForm(forms.ModelForm):
+class HouseCompartmentForm(forms.ModelForm):
     class Meta:
-        model = HouseListingPicture
+        model = HouseCompartment
         fields = [
-            'descriçao',
-            'picture'
+            'tipo',
+            'foto'
         ]

@@ -26,7 +26,7 @@
 				            <a href="{% url 'house_toggle_visibility' house.pk %}" class="btn btn-sm btn-secondary">
 				                {% if house.mostrar_na_lista %}Ocultar{% else %}Publicar{% endif %}
 				            </a>
-				            <a href="{% url 'house_upload_picture' house.pk %}" class="btn btn-sm btn-primary">Imagens</a>
+				            <a href="{% url 'create_compartment' house.pk %}" class="btn btn-sm btn-primary">Compartimentos</a>
 				            <a href="{% url 'house_delete' house.pk %}" class="btn btn-sm btn-danger">Excluir</a>
 			            {% endif %}
                     </div>

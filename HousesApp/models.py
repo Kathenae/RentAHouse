@@ -10,12 +10,12 @@ YESNO = [
     ("Não", "Não"),
 ]
 
-MAIN_BEDROOM = "main_bedroom"
-BEDROOM = "bedroom"
-LIVING_ROOM = "living_room"
-DINING_ROOM = "dining_room"
-KITCHEN = "kitchen"
-BATHROOM = "bathroom"
+MAIN_BEDROOM = "Quarto Principal"
+BEDROOM = "Quarto"
+LIVING_ROOM = "Sala de Estar"
+DINING_ROOM = "Sala de Jantar"
+KITCHEN = "Cozinha"
+BATHROOM = "Quarto de Banho"
 
 ROOMCHOICES = [
     (MAIN_BEDROOM, "Quarto Principal"),
@@ -93,14 +93,14 @@ class HouseListing(models.Model):
         return reverse('house_detail', kwargs={'pk': self.pk})
 
 
-class HouseListingPicture(models.Model):
+class HouseCompartment(models.Model):
     
     house = models.ForeignKey(
         to=HouseListing, 
         on_delete=models.CASCADE, 
-        related_name="pictures"
+        related_name="compartments"
     )
 
-    descriçao = models.CharField(max_length=20,choices=ROOMCHOICES)
+    tipo = models.CharField(max_length=20,choices=ROOMCHOICES)
 
-    picture = models.ImageField(upload_to="images/houses")
+    foto = models.ImageField(upload_to="images/houses")

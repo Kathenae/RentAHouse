@@ -30,10 +30,10 @@
                                 </div>
                             </div>
                         </div>
-                        {% for picture in house.pictures.all %}
+                        {% for compartimento in house.compartments.all %}
                         <div class="carousel-item">
                             <img 
-                                src="{{picture.picture.url}}" 
+                                src="{{compartimento.foto.url}}" 
                                 class="img-fluid d-block imgSlide" 
                                 width="1000" 
                                 height="600" 
@@ -42,7 +42,7 @@
                                 <!--O Texto que acompanha a imagem-->
                                 <div class="slideInfo">
                                     <h3 class="h3Slide">
-                                        {{picture.descriçao}}
+                                        {{compartimento.tipo}}
                                     </h3>
                                 </div>
                             </div>

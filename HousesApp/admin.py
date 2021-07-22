@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HouseListing, HouseListingPicture
+from .models import HouseListing, HouseCompartment
 
 # Register your models here.
 
@@ -8,4 +8,4 @@ class HouseListingAdmin(admin.ModelAdmin):
 	list_filter = ('data_registrada','cidade', 'distrito', 'bairro')
 
 admin.site.register(HouseListing,HouseListingAdmin)
-admin.site.register(HouseListingPicture)
+admin.site.register(HouseCompartment)
