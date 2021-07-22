@@ -10,6 +10,22 @@ YESNO = [
     ("Não", "Não"),
 ]
 
+MAIN_BEDROOM = "main_bedroom"
+BEDROOM = "bedroom"
+LIVING_ROOM = "living_room"
+DINING_ROOM = "dining_room"
+KITCHEN = "kitchen"
+BATHROOM = "bathroom"
+
+ROOMCHOICES = [
+    (MAIN_BEDROOM, "Quarto Principal"),
+    (BEDROOM, "Quarto"),
+    (LIVING_ROOM, "Sala de Estar"),
+    (DINING_ROOM, "Sala de Jantar"),
+    (KITCHEN, "Cozinha"),
+    (BATHROOM, "Quarto de Banho"),
+]
+
 class MOZAMBIQUE:
     TETE = "Tete"
     MAPUTO = "Maputo"
@@ -85,6 +101,6 @@ class HouseListingPicture(models.Model):
         related_name="pictures"
     )
 
-    descriçao = models.CharField(max_length=20)
+    descriçao = models.CharField(max_length=20,choices=ROOMCHOICES)
 
     picture = models.ImageField(upload_to="images/houses")
