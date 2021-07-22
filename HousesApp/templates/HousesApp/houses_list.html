@@ -8,7 +8,8 @@
 {% block content %}
 
     <div class="container">
-        <h1>Encontre Casas</h1>
+
+        <h1>Encontre Casas {% if cidade and cidade != "all" %} em {{cidade}} {% endif %}</h1>
 
         <div class="col-md-2">
             <p>
@@ -71,14 +72,18 @@
             </div>
           </form>
 
-        {% if houses.count <= 0 %}
+        {% if paginator.count <= 0 %}
             <div class="text-center">
-                <h1 class="text-info">Nenhuma Casa Disponivel</h1>
-                <h3>Se possui uma casa para aluguer, <a href="{% url 'house_create' %}">submita uma aqui</a></h3>
+                <h1 class="text-info">Nenhuma Casa Encontrada</h1>
+                {% if cidade and cidade != "all" or distrito or price_range or room_count %}
+                <h3><a href="{% url 'house_list' %}">Desfazer Filtros</a></h3>
+                {% else %}
+                <h3><a href="{% url 'house_create' %}">Registrar Casa</a></h3>
+                {% endif %}
             </div>
         {% endif %}     
         <div class="row">
-            {% for house in houses %}
+            {% for house in page_obj %}
             <div class="col-md-4 mb-4">
                 <div class="card" style=" min-height: 370px;">
                     <img src="{% static 'img/house_preview_2.jpg' %}" alt="">
@@ -95,5 +100,25 @@
             </div>
             {% endfor %}
         </div>
+
+        {% if paginator.count > 0 %}
+        <div class="pagination text-center row">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primeira</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">voltar</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
     </div>
 {% endblock content %}

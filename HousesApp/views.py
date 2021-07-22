@@ -21,6 +21,7 @@ class HomeView(TemplateView):
 
 class HousesListView(ListView):
     model = HouseListing
+    paginate_by = 3
     context_object_name = "houses"
     template_name = "HousesApp/houses_list.html"
 
