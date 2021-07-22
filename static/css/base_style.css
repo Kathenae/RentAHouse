@@ -91,3 +91,10 @@ h3#slogan{
     border-radius: 15px;
     box-shadow: 2px 3px 3px  #212529;
 }
+
+@media (max-width:576px){
+    #navigation_bar{
+        background-color: #eee!important;
+        color: white;
+    }
+}   
